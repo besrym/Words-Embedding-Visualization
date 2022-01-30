@@ -28,14 +28,15 @@ i used:
 - learning rate: 0.01
 - momentum:   0.9
 
-![](./img.png)
+![](embedding.jpg)
 
-for targetword in sentence:
-    for contextword arround targetword:
-        embedding = matmul(E, targetword)
-        tmp = matmul(W, embedding)
-        predicted_contextword = softmax(tmp)
-        minimize(predicted_contextword, contextword)
+
+for targetword in sentence:  
+&emsp;&emsp;&emsp;&emsp;&emsp;for contextword arround targetword:  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;embedding = matmul(E, targetword)  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;tmp = matmul(W, embedding)  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;predicted_contextword = softmax(tmp)  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;minimize(predicted_contextword, contextword)
 
 # Visualization
 
