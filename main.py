@@ -12,10 +12,10 @@ import matplotlib.pyplot as plt
 # 1.) Data
 
 # 1.1.) Path
-path = ""                           # <-- insert project directory here
+path = ""  # <-- insert project directory here
 
-word_embedding_data_path = path + "/data/WordEmbedding_Data_Tiny.txt"
-#word_embedding_data_path = path + "/data/WordEmbedding_Data.txt"
+# word_embedding_data_path = path + "/data/WordEmbedding_Data_Tiny.txt"
+# word_embedding_data_path = path + "/data/WordEmbedding_Data.txt"
 
 # 1.2.) Load Data
 word_embedding_data_tiny = []
@@ -59,19 +59,26 @@ optimizer = optim.SGD(network.parameters(), lr=0.01, momentum=0.9)
 
 loss_list = []
 
+
 def train(epoch, network):
     network.train()
     z = 0
     sentences = len(pre_corpus)
     for sentence in pre_corpus:
         for targetword in sentence:
-            targetword = hot_encoder.transform(np.array([targetword]).reshape(1, -1)).toarray()
+            targetword = hot_encoder.transform(
+                np.array([targetword]).reshape(1, -1)
+            ).toarray()
             targetword = torch.tensor(targetword).float()
             for contextword in sentence:
-                contextword = hot_encoder.transform(np.array([contextword]).reshape(1, -1)).toarray()
+                contextword = hot_encoder.transform(
+                    np.array([contextword]).reshape(1, -1)
+                ).toarray()
                 contextword = torch.tensor(contextword).float()
 
-                if torch.all(torch.eq(targetword.clone().detach(), contextword.clone().detach())):
+                if torch.all(
+                    torch.eq(targetword.clone().detach(), contextword.clone().detach())
+                ):
                     pass
 
                 output = network(targetword)
@@ -82,7 +89,11 @@ def train(epoch, network):
                 optimizer.zero_grad()
 
         z += 1
-        print("Train Epoch: {} \t [{:.0f}%] \t sentence: {}/{} ".format(epoch, (z / sentences)*100, z, sentences ))
+        print(
+            "Train Epoch: {} \t [{:.0f}%] \t sentence: {}/{} ".format(
+                epoch, (z / sentences) * 100, z, sentences
+            )
+        )
 
 
 n_epochs = 10
@@ -104,7 +115,7 @@ for word in set(corpus):
 word_embeddings = np.array(word_embeddings)
 word_embeddings = np.squeeze(word_embeddings, axis=1)
 X_embedded = TSNE(n_components=2).fit_transform(word_embeddings)
-ax = sns.scatterplot(X_embedded[:,0], X_embedded[:,1])
+ax = sns.scatterplot(X_embedded[:, 0], X_embedded[:, 1])
 
 i = 0
 for word in set(corpus):

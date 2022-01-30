@@ -1,4 +1,3 @@
-
 def preprocess_text(text):
     for sentence in text:
         for word in sentence:
@@ -25,4 +24,3 @@ def preprocess_text(text):
             elif word == "]":
                 sentence.remove(word)
     return text
-
